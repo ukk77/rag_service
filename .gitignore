@@ -1,0 +1,11 @@
+# Data & artifacts
+chromadb_data/
+rag_ingestion_watermark.json
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# IDE
+.vscode/
+.idea/
