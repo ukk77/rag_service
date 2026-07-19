@@ -116,7 +116,7 @@ def synthesize_run_summary(
         settings = get_settings()
 
     regime = run_report.get("regime", "unknown")
-    alloc = run_report.get("allocation_summary", {})
+    alloc = run_report.get("allocation_summary", "")
     executed = run_report.get("executed_trades", 0)
     conflicts = run_report.get("conflicts_blocked", 0)
     unrealized_pnl = run_report.get("unrealized_pnl", 0)
@@ -124,7 +124,10 @@ def synthesize_run_summary(
     top_sells = run_report.get("top_sells", [])
     open_positions = run_report.get("open_positions", 0)
 
-    alloc_str = ", ".join(f"{k}=${v:,.0f}" for k, v in alloc.items()) if alloc else "N/A"
+    if isinstance(alloc, dict):
+        alloc_str = ", ".join(f"{k}=${v:,.0f}" for k, v in alloc.items()) if alloc else "N/A"
+    else:
+        alloc_str = str(alloc) if alloc else "N/A"
     buys_str = ", ".join(top_buys[:5]) if top_buys else "none"
     sells_str = ", ".join(top_sells[:5]) if top_sells else "none"
 
